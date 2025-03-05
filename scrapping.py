@@ -33,6 +33,8 @@ def get_month_blogs(ul_tag):
             headline_tag = blog.find("a", class_="post-headline") 
             headline = headline_tag.text.strip()
             link_ref = headline_tag["href"]
+            #Existen dos div con la clase maya en cada noticia, por lo que se usa [-1]
+            #porque el último div con esa clase es el que contiene la fecha
             fecha_noticia = fecha[-1].text.strip()
             content = get_post_content(link_ref)
             blogs_list.append((headline,link_ref, fecha_noticia, content))
