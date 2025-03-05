@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
+import time
 
 #Función para obtener la sección con los url de los meses con noticias del 2018
 def get_2018_months_tag(url):
@@ -27,11 +28,14 @@ def get_month_blogs(ul_tag):
         blogs = soup.find_all("div", class_="single-blog-area blog-style-2 mb-15 wow fadeInUp")
 
         for blog in blogs:
+            time.sleep(2)
+            fecha = blog.find_all(class_="maya")
             headline_tag = blog.find("a", class_="post-headline") 
             headline = headline_tag.text.strip()
             link_ref = headline_tag["href"]
+            fecha_noticia = fecha[-1].text.strip()
             content = get_post_content(link_ref)
-            blogs_list.append((headline,link_ref, content))
+            blogs_list.append((headline,link_ref, fecha_noticia, content))
     return blogs_list
     
 
